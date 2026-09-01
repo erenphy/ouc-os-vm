@@ -186,6 +186,49 @@ def test_crash():
     test_forphan()
     test_dorphan()
 
+def test_vmobserve():
+    print("c0: Test vmobserve")
+
+    q = QEMU(True)
+
+    q.cmd("vmobserve\n")
+
+    q.monitor(
+        '^===c0 observation finished ===$',
+        progress=(
+            '^code  address|'
+            '^global address|'
+            '^stack address|'
+            '^heap  before|'
+            '^heap  after|'
+            '^heap growth'
+        ),
+        timeout=30
+    )
+
+    lines = q.lines()
+
+    required = [
+        r'^===OUC===c0: xv6 virtual memory observation ===$',
+        r'^code  address : 0x[0-9a-fA-F]+$',
+        r'^global address: 0x[0-9a-fA-F]+$',
+        r'^stack address : 0x[0-9a-fA-F]+$',
+        r'^heap  before  : 0x[0-9a-fA-F]+$',
+        r'^heap  after   : 0x[0-9a-fA-F]+$',
+        r'^heap growth   : 4096 bytes$',
+        r'^===c0 observation finished ===$'
+    ]
+
+    for regexp in required:
+        if not any(re.match(regexp, line) for line in lines):
+            print("FAIL: missing:", regexp)
+            q.save_output()
+            q.stop()
+            sys.exit(1)
+
+    q.stop()
+    print("OK")
+
 def test_usertests(test=""):
     timeout = 600
     opt = ""
