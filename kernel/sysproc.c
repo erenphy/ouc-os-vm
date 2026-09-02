@@ -105,3 +105,17 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// Print the current process's page table.
+uint64
+sys_vmprint(void)
+{
+  struct proc *p = myproc();
+
+  printf("current process: pid=%d name=%s\n",
+         p->pid, p->name);
+
+  vmprint(p->pagetable);
+
+  return 0;
+}
