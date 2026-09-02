@@ -33,19 +33,15 @@ main(void)
   printf("===c0 observation finished ===\n");
 
   /*
-   * c0-2(Question 5):
+   * c0-2:
    * Ask the kernel to print the current process's page table.
    */
-  /*
-  printf("\n");
-  printf("=== c0-2: page table observation ===\n");
 
+  printf("\n");
   if(vmprint() < 0){
     printf("vmprint failed\n");
     exit(1);
   }
-  printf("=== c0-2 observation finished ===\n");
-  */
-  
+
   exit(0);
 }

@@ -491,31 +491,12 @@ ismapped(pagetable_t pagetable, uint64 va)
 static void
 vmprint_walk(pagetable_t pagetable, int level)
 {
-  for(int i = 0; i < 512; i++){
-    pte_t pte = pagetable[i];
-
-    if((pte & PTE_V) == 0)
-      continue;
-
-    printf("..");
-    for(int j = 0; j < level; j++)
-      printf(" ..");
-
-    printf("%d: Pte 0x%lx PA 0x%lx\n",
-       i, pte, PTE2PA(pte));
-
-    // R/W/X all zero means this PTE points
-    // to a lower-level page table.
-    if((pte & (PTE_R | PTE_W | PTE_X)) == 0){
-      uint64 child = PTE2PA(pte);
-      vmprint_walk((pagetable_t)child, level + 1);
-    }
-  }
+  printf("=== Congratulations! Welcome to C1 ===\n");
 }
 
 void
 vmprint(pagetable_t pagetable)
 {
-  printf("Page table %p\n", pagetable);
+  printf("Printing the Page table %p\n", pagetable);
   vmprint_walk(pagetable, 0);
 }
