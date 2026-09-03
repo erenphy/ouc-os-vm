@@ -132,6 +132,9 @@ found:
     return 0;
   }
 
+  // TODO: allocate a user syscall page
+
+
   // An empty user page table.
   p->pagetable = proc_pagetable(p);
   if(p->pagetable == 0){
@@ -155,6 +158,7 @@ found:
 static void
 freeproc(struct proc *p)
 {
+  // TODO: free the user syscall page
   if(p->trapframe)
     kfree((void*)p->trapframe);
   p->trapframe = 0;
@@ -202,6 +206,8 @@ proc_pagetable(struct proc *p)
     return 0;
   }
 
+  // TODO: map the user syscall page
+
   return pagetable;
 }
 
@@ -210,6 +216,7 @@ proc_pagetable(struct proc *p)
 void
 proc_freepagetable(pagetable_t pagetable, uint64 sz)
 {
+  //TODO: unmap the user syscall page
   uvmunmap(pagetable, TRAMPOLINE, 1, 0);
   uvmunmap(pagetable, TRAPFRAME, 1, 0);
   uvmfree(pagetable, sz);

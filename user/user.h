@@ -21,10 +21,13 @@ int mkdir(const char*);
 int chdir(const char*);
 int dup(int);
 int getpid(void);
+// for c1
+int ugetpid(void);
 char* sys_sbrk(int,int);
 int pause(int);
 int uptime(void);
 int vmprint(void);
+// congratulations! welcome to 2.3
 
 // ulib.c
 int stat(const char*, struct stat*);

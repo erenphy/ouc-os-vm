@@ -4,6 +4,8 @@
 #include "kernel/riscv.h"
 #include "kernel/vm.h"
 #include "user/user.h"
+#include "kernel/memlayout.h"
+#include "kernel/usyscall.h"
 
 //
 // wrapper so that it's OK if main() does not call exit().
@@ -158,3 +160,10 @@ sbrklazy(int n) {
   return sys_sbrk(n, SBRK_LAZY);
 }
 
+int
+ugetpid(void)
+{
+  //TODO:return the pid of the current process using the USYSCALL page
+  
+  return 0;
+}

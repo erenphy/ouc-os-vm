@@ -119,3 +119,11 @@ sys_vmprint(void)
 
   return 0;
 }
+
+// TODO: print pte\pa pages\offset\PA for the given virtual address.
+uint64
+sys_vmlookup(void)
+{
+    //struct proc *p = myproc(); 
+    return 0;
+}

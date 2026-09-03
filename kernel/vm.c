@@ -485,18 +485,36 @@ ismapped(pagetable_t pagetable, uint64 va)
   return 0;
 }
 
-// Print the page table.
-// This function is provided for the C0-2 observation experiment.
-
+// TODO: Print the page table.
 static void
-vmprint_walk(pagetable_t pagetable, int level)
+vmprint_walk(pagetable_t pagetable,int level)
 {
-  printf("=== Congratulations! Welcome to C1 ===\n");
+  for(int i = 0; i < 512; i++){
+    pte_t pte = pagetable[i];
+    
+    // Skip invalid page table entries.
+    if((pte & PTE_V) == 0)
+      continue;
+    // TODO:
+    // Print indentation according to the current level.
+
+    // TODO:
+    // Print the PTE index, PTE value and physical address.
+
+    // TODO:
+    // Determine whether this PTE points to a lower-level
+    // page table or represents a leaf mapping.
+
+    // TODO:
+    // If this PTE points to a lower-level page table,
+    // recursively print that page table.
+  }
 }
 
 void
 vmprint(pagetable_t pagetable)
 {
-  printf("Printing the Page table %p\n", pagetable);
+  printf("===OUC===c1: Print Page table ===\n");
+  printf("\nTODO: <vm.c> Printing the Page table %p\n", pagetable);
   vmprint_walk(pagetable, 0);
 }

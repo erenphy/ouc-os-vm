@@ -7,41 +7,23 @@ int
 main(void)
 {
   int local_var = 456;
-  uint64 heap_before;
-  uint64 heap_after;
 
-  printf("===OUC===c0: xv6 virtual memory observation ===\n");
-
-  printf("code  address : 0x%lx\n", (uint64)main);
-  printf("global address: 0x%lx\n", (uint64)&global_var);
+  printf("\n===OUC===c1: address analysis ===\n");
+  printf("TODO: <vmobserve.c> fix address analysis\n");
+  // TODO: c1-1: address analysis:VA\VPN[2]\VPN[1]\VPN[0]\offset
   printf("stack address : 0x%lx\n", (uint64)&local_var);
 
-  heap_before = (uint64)sbrk(0);
-  printf("heap  before  : 0x%lx\n", heap_before);
+  printf("\n===OUC===c1: address analysis Done ===\n");
 
-  if(sbrk(4096) < 0){
-    printf("sbrk failed\n");
-    exit(1);
-  }
-
-  heap_after = (uint64)sbrk(0);
-  printf("heap  after   : 0x%lx\n", heap_after);
-
-  printf("heap growth   : %d bytes\n",
-         (int)(heap_after - heap_before));
-
-  printf("===c0 observation finished ===\n");
-
-  /*
-   * c0-2:
-   * Ask the kernel to print the current process's page table.
-   */
-
-  printf("\n");
+  // calling vmprint() to print the current process's page table
+  printf("\n===OUC===c1: vmprint() ===\n");
   if(vmprint() < 0){
     printf("vmprint failed\n");
     exit(1);
   }
+  printf("\n===OUC===c1: vmprint() Done ===\n");
+
+
 
   exit(0);
 }
